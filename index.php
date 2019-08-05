@@ -1,16 +1,13 @@
 <?php
-include 'libhtml.php';
-include 'libjson.php';
+
+require 'lib/libhtml.php';
+require 'lib/libjson.php';
 
 $content = "
-  <form action=\"index.php\" method=\"post\">
+  <form action=\"create.php\" method=\"get\">
     <input type='submit' name='submit' value='ADD NEW' />
   </form>
-
 ";
-$content .= createTable(getArray(), true);
-mainTemplate("MAIN", $content);
-if(isset($_POST['submit'])){
-  header ("Location: create.php");
-}
-?>
+
+$content .= renderTable(getArray(), true);
+renderPage("MAIN", $content);

@@ -1,5 +1,5 @@
 <?php
-  include 'libjson.php';
+  include 'lib/libjson.php';
 
   $name = $_POST['name'];
   $secondname = $_POST['secondname'];
