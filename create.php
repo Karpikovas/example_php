@@ -1,6 +1,6 @@
 <?php
 
-require 'lib/libhtml.php';
+require  'autoloader.php';
 
 $content = "
   <form action=\"do_create.php\" method=\"post\">
@@ -11,5 +11,5 @@ $content = "
     <input type=\"submit\" value=\"ADD\" name=\"submit-from\" />
   </form>
  ";
-
-renderPage("ADD", $content);
+$libHTML = new libHTML();
+$libHTML->renderPage("ADD", $content);

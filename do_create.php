@@ -1,5 +1,5 @@
 <?php
-  include 'lib/libjson.php';
+  require  'autoloader.php';
 
   $name = $_POST['name'];
   $secondname = $_POST['secondname'];
@@ -33,13 +33,14 @@
     header ("Location: create.php");
   } else {
     $item = [
+          'id' => random_int(0, 1000),
           'name' => $_POST['name'],
           'secondname' => $_POST['secondname'],
           'patr' => $_POST['patr'],
-          'birthday' => $_POST['birthday'],
-          'id' => random_int(0, 1000)
+          'birthday' => $_POST['birthday']
       ];
-    addItem($item);
+    $libJSON = new libJSON();
+    $libJSON->addItem($item);
     header ("Location: index.php");
   }
 ?>

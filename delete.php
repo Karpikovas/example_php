@@ -1,20 +1,23 @@
 <?php
 
-require 'lib/libhtml.php';
-require 'lib/libjson.php';
+require  'autoloader.php';
+
+$libJSON = new libJSON();
+$libHTML = new libHTML();
 
 if (isset($_GET['delete'])) {
 
   $id = $_GET['id'];
 
-  $arr_data = array_filter(
-      getArray(),
+  $body = array_filter(
+      $libJSON->getArray(),
       function ($var) use ($id) {
         return $var['id'] == $id;
       }
   );
 
-  $content = renderTable($arr_data, false);
+  $header = ["ID", "Name", "SecondName", "Patr", "Birthday"];
+  $content = $libHTML->renderTable_($header, $body);
   $content .= "
       <form action=\"do_delete.php\" method=\"post\">
         <input type=\"submit\" value=\"DELETE\" name=\"delete_item\" />
@@ -23,7 +26,7 @@ if (isset($_GET['delete'])) {
       </form>
     ";
 
-  renderPage("DELETE", $content);
+    $libHTML->renderPage("DELETE", $content);
 } else {
-  renderPage("ERROR", "wrong redirect");
+    $libHTML->renderPage("ERROR", "wrong redirect");
 }

@@ -1,46 +1,40 @@
 <?php
 
-$myFile = __DIR__ . "/../db/data.json";
+class libJSON {
+    private $myFile = __DIR__ . "/../db/data.json";
+    private $jsondata;
+    private $arr_data;
 
-
-function getArray()
-{
-  global $myFile;
-  $jsondata = file_get_contents($myFile);
-  $arr_data = json_decode($jsondata, true);
-  return $arr_data;
-}
-
-;
-
-function saveArray($arr_data)
-{
-  global $myFile;
-  $jsondata = json_encode($arr_data, JSON_PRETTY_PRINT);
-  file_put_contents($myFile, $jsondata);
-}
-
-;
-
-function deleteItem($itemID)
-{
-  $arr_data = getArray();
-  $i = 0;
-  foreach ($arr_data as $item) {
-    if ($item[id] == $itemID) {
-      unset($arr_data[$i]);
+    public function getArray(): array
+    {
+        $this->jsondata = file_get_contents($this->myFile);
+        $this->arr_data = json_decode($this->jsondata, true);
+        return $this->arr_data;
     }
-    $i++;
-  }
-  $arr_data = array_values($arr_data);
-  saveArray($arr_data);
-}
+    public function saveArray(): void
+    {
+        $this->jsondata = json_encode($this->arr_data, JSON_PRETTY_PRINT);
+        file_put_contents($this->myFile, $this->jsondata);
+    }
 
-;
+    public function deleteItem(int $itemID): void
+    {
+        $this->getArray();
+        $i = 0;
+        foreach ($this->arr_data as $item) {
+            if ($item[id] == $itemID) {
+                unset($this->arr_data[$i]);
+            }
+            $i++;
+        }
+        $this->arr_data = array_values($this->arr_data);
+        $this->saveArray();
+    }
 
-function addItem($item)
-{
-  $arr_data = getArray();
-  $arr_data[] = $item;
-  saveArray($arr_data);
+    public function addItem(object $item): void
+    {
+        $this->getArray();
+        $this->arr_data[] = $item;
+        $this->saveArray();
+    }
 }
