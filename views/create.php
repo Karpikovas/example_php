@@ -1,9 +1,9 @@
 <?php
 
-require  'autoloader.php';
+require 'autoloader.php';
 
 $content = "
-  <form action=\"do_create.php\" method=\"post\">
+  <form action='do_create' method=\"post\">
     Name: <input type=\"text\"  name=\"name\" /><br/>
     Secondname: <input type=\"text\"  name=\"secondname\" /><br/>
     Patr: <input type=\"text\"  name=\"patr\" /><br/>

@@ -31,7 +31,7 @@ class libJSON {
         $this->saveArray();
     }
 
-    public function addItem(object $item): void
+    public function addItem(array $item): void
     {
         $this->getArray();
         $this->arr_data[] = $item;
