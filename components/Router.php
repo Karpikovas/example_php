@@ -26,9 +26,11 @@ class Router
     foreach ($this->routes as $uriPattern => $path) {
 
       if (preg_match("~$uriPattern~", $uri)) {
+
         if (strlen($uriPattern) == 0 && strlen($uri) != 0) {
           continue;
         }
+
         $find = true;
 
         $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
@@ -43,13 +45,13 @@ class Router
         $controllerObject = new $controllerName;
         $result = call_user_func_array(array($controllerObject, $actionName), $parameters);
 
-        if ($result == 1) {
-          break;
-        }
       }
     }
+
     if (!$find) {
       header('Location: /error');
     }
+
   }
+
 }

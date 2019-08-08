@@ -11,7 +11,6 @@ class SiteController
     $header = ["ID", "Name", "SecondName", "Patr", "Birthday", "Delete"];
 
     require_once(ROOT . '/views/site/index.php');
-
     return true;
   }
 

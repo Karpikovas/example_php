@@ -6,17 +6,60 @@ class Item
 
   public static function getItemsList(): array
   {
-    return libJSON::getArray();
+//    return libJSON::getArray();
+    $db = Db::getConnection();
+
+    $sql = 'SELECT * FROM item';
+    $result = $db->query($sql);
+
+    $i = 0;
+    $items = array();
+    while ($row = $result->fetch())
+    {
+      $items[$i]['id'] = $row['id'];
+      $items[$i]['name'] = $row['name'];
+      $items[$i]['secondname'] = $row['secondname'];
+      $items[$i]['patr'] = $row['patr'];
+      $items[$i]['birthday'] = $row['birthday'];
+      $i++;
+    }
+    return $items;
   }
 
   public static function getItemByID(int $itemID): array
   {
-    $item = array_filter(
-        libJSON::getArray(),
-        function ($var) use ($itemID) {
-          return $var['id'] == $itemID;
-        }
-    );
+//    $item = array_filter(
+//        libJSON::getArray(),
+//        function ($var) use ($itemID) {
+//          return $var['id'] == $itemID;
+//        }
+//    );
+//    return $item;
+    $db = Db::getConnection();
+
+    $sql = $db->prepare('SELECT * FROM item WHERE id = :id');
+    $sql->bindParam(':id', $itemID, PDO::PARAM_INT);
+    $sql->execute();
+    $item = $sql->fetch();
+
+//    foreach($item as $raw)
+//      echo $raw.'<br/>';
+//
+  print_r($item);
+
+//    $result = $db->query($sql);
+//
+//    $i = 0;
+//    $items = array();
+//    while ($row = $result->fetch())
+//    {
+//      $items[$i]['id'] = $row['id'];
+//      $items[$i]['name'] = $row['name'];
+//      $items[$i]['secondname'] = $row['secondname'];
+//      $items[$i]['patr'] = $row['patr'];
+//      $items[$i]['birthday'] = $row['birthday'];
+//      $i++;
+//    }
     return $item;
   }
 

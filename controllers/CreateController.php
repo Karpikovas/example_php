@@ -4,12 +4,13 @@ class CreateController
 {
 
 
-  public function actionIndex(): void
+  public function actionIndex(): bool
   {
     require_once(ROOT . '/views/create/index.php');
+    return true;
   }
 
-  public function actionCreate(): void
+  public function actionCreate(): bool
   {
     if (isset($_POST['submit'])) {
       $name = $_POST['name'];
@@ -32,13 +33,21 @@ class CreateController
         $errors[] = 'Error with birthday';
       }
       if ($errors == false) {
-        header('Location: /');
         Item::addItem($name, $secondName, $patr, $birthday);
-      } else {
-        foreach ($errors as $error) {
-          echo '<br/>' . $error;
-        }
+        header('Location: /');
+        return true;
+//      } else {
+//        foreach ($errors as $error) {
+//          echo '<br/>' . $error;
+//        }
       }
     }
+    return false;
+  }
+
+  public function actionErrors($errors)
+  {
+    require_once(ROOT . '/views/create/index.php');
+    return true;
   }
 }

@@ -8,9 +8,11 @@
             <?php endforeach; ?>
             </thead>
             <tbody>
-            <?php foreach ($items as $row):?>
-                <tr><?php array_map( function ($item) { echo "<td>$item</td>"; }, $row);?></tr>
-            <?php endforeach; ?>
+              <tr>
+                <?php foreach ($items as $row => $val):?>
+                  <td><?php echo $val;?></td>
+              <?php endforeach; ?>
+              </tr>
             </tbody>
         </table>
         <form action='/delete/<?php echo $itemID; ?>/process' method='post'>
