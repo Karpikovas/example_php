@@ -1,5 +1,6 @@
 <?php
-class libHTML {
+class libHTML
+{
     public function renderPage(string $title, string $content): void
     {
         $template = "
@@ -27,6 +28,25 @@ class libHTML {
         $bodyHtml = "<tbody>". $bodyHtml . "</tbody>";
 
         return "<table border=1>$headerHtml $bodyHtml</table>";
+    }
+    public function renderHeader(string $title): void
+    {
+        $template = "
+            <html>
+              <head>
+                <title>$title</title>
+              </head>
+              <body>
+        ";
+        echo $template;
+    }
+    public function renderFooter(): void
+    {
+        $template = "
+              </body>
+              </html>
+        ";
+        echo $template;
     }
 }
 
