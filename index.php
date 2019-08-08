@@ -1,13 +1,10 @@
 <?php
 
-require 'lib/libhtml.php';
-require 'lib/libjson.php';
+define('ROOT', dirname(__FILE__));
+require_once(ROOT.'/components/Autoload.php');
 
-$content = "
-  <form action=\"create.php\" method=\"get\">
-    <input type='submit' name='submit' value='ADD NEW' />
-  </form>
-";
+$router = new Router();
+$router->run();
 
-$content .= renderTable(getArray(), true);
-renderPage("MAIN", $content);
+
+
