@@ -7,13 +7,13 @@
                 <th><?php echo $hi?></th>
             <?php endforeach; ?>
             </thead>
-            <tbody>
-              <tr>
-                <?php foreach ($items as $row => $val):?>
-                  <td><?php echo $val;?></td>
-              <?php endforeach; ?>
-              </tr>
-            </tbody>
+          <tbody>
+          <?php foreach ($items as $row):?>
+            <tr>
+              <?php array_map( function ($item) { echo "<td>$item</td>"; }, $row);?>
+            </tr>
+          <?php endforeach; ?>
+          </tbody>
         </table>
         <form action='/delete/<?php echo $itemID; ?>/process' method='post'>
             <input type='submit'name='delete' value='DELETE'/>

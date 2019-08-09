@@ -1,17 +1,14 @@
 <?php libHTML::renderHeader("ADD") ?>
 
     <section>
+      <?php echo $errors ?>
         <form action='/create/process' method="post">
-            Name: <input type="text"  name="name" value="$name"/><br/>
-            Secondname: <input type="text"  name="secondname" /><br/>
-            Patr: <input type="text"  name="patr" /><br/>
-            Birthday: <input type="date"  name="birthday" /><br/>
+            Name: <input type="text"  name="name" value="<?php echo $name ?>"/><br/>
+            Secondname: <input type="text"  name="secondname" value="<?php echo $secondName ?>"/><br/>
+            Patr: <input type="text"  name="patr" value="<?php echo $patr ?>"/><br/>
+            Birthday: <input type="date"  name="birthday" value="<?php echo $birthday ?>"/><br/>
             <input type="submit" value="ADD" name="submit" />
         </form>
-      <?php foreach ($errors as $error) {
-          echo '<br/>' . $error;
-        }
-        ?>
     </section>
 
 <?php libHTML::renderFooter() ?>

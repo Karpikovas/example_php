@@ -3,10 +3,9 @@
 class Item
 {
 
-
+  //OK
   public static function getItemsList(): array
   {
-//    return libJSON::getArray();
     $db = Db::getConnection();
 
     $sql = 'SELECT * FROM item';
@@ -26,71 +25,48 @@ class Item
     return $items;
   }
 
+  //OK
   public static function getItemByID(int $itemID): array
   {
-//    $item = array_filter(
-//        libJSON::getArray(),
-//        function ($var) use ($itemID) {
-//          return $var['id'] == $itemID;
-//        }
-//    );
-//    return $item;
     $db = Db::getConnection();
-
     $sql = $db->prepare('SELECT * FROM item WHERE id = :id');
     $sql->bindParam(':id', $itemID, PDO::PARAM_INT);
+
+
+    $i = 0;
     $sql->execute();
-    $item = $sql->fetch();
+    $item = array();
+    while ($row = $sql->fetch())
+    {
+      $item[$i]['id'] = $row['id'];
+      $item[$i]['name'] = $row['name'];
+      $item[$i]['secondname'] = $row['secondname'];
+      $item[$i]['patr'] = $row['patr'];
+      $item[$i]['birthday'] = $row['birthday'];
+      $i++;
+    }
 
-//    foreach($item as $raw)
-//      echo $raw.'<br/>';
-//
-  print_r($item);
-
-//    $result = $db->query($sql);
-//
-//    $i = 0;
-//    $items = array();
-//    while ($row = $result->fetch())
-//    {
-//      $items[$i]['id'] = $row['id'];
-//      $items[$i]['name'] = $row['name'];
-//      $items[$i]['secondname'] = $row['secondname'];
-//      $items[$i]['patr'] = $row['patr'];
-//      $items[$i]['birthday'] = $row['birthday'];
-//      $i++;
-//    }
     return $item;
   }
 
-  public static function deleteItem(int $itemID): void
+  public static function deleteItem(int $itemID)
   {
-    $items = libJSON::getArray();
-    $i = 0;
-    foreach ($items as $item) {
-      if ($item[id] == $itemID) {
-        unset($items[$i]);
-      }
-      $i++;
-    }
-    $items = array_values($items);
-    libJSON::saveArray($items);
+    $db = Db::getConnection();
+    $sql = $db->prepare('DELETE FROM item WHERE id = :id');
+    $sql->bindParam(':id', $itemID, PDO::PARAM_INT);
+    return $sql->execute();
   }
 
-  public static function addItem(string $name, string $secondName, string $patr, string $birthday): void
+  public static function addItem(string $name, string $secondName, string $patr, string $birthday)
   {
-    $item = [
-        'id' => random_int(0, 1000),
-        'name' => $name,
-        'secondname' => $secondName,
-        'patr' => $patr,
-        'birthday' => $birthday
-    ];
+    $db = Db::getConnection();
+    $sql = $db->prepare('INSERT INTO item (name, secondname, patr, birthday) VALUES (:name, :secondname, :patr, :birthday);');
+    $sql->bindParam(':name', $name, PDO::PARAM_STR);
+    $sql->bindParam(':secondname', $secondName, PDO::PARAM_STR);
+    $sql->bindParam(':patr', $patr, PDO::PARAM_STR);
+    $sql->bindParam(':birthday', $birthday, PDO::PARAM_STR);
 
-    $items = libJSON::getArray();
-    $items[] = $item;
-    libJSON::saveArray($items);
-
+    return $sql->execute();
   }
 
   public static function checkName(string $name): bool
