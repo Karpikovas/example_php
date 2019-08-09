@@ -18,7 +18,7 @@
         <form action='/delete/<?php echo $itemID; ?>/process' method='post'>
             <input type='submit'name='delete' value='DELETE'/>
             <input type='submit'name='cancel' value='CANCEL'/>
-            <input type='hidden' name='id' value=<?php echo $itemID; ?>>
+            <input type='hidden' name='errors' value=<?php echo $itemID; ?>>
         </form>
     </section>
 

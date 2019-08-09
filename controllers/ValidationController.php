@@ -1,11 +1,11 @@
 <?php
 
-class CreateController
+class ValidationController
 {
-
 
   public function actionIndex(): bool
   {
+
     $name = $_POST['name'];
     $secondName = $_POST['secondname'];
     $patr = $_POST['patr'];
@@ -30,12 +30,11 @@ class CreateController
         Item::addItem($name, $secondName, $patr, $birthday);
         header('Location: /');
         return true;
+      } else {
+        $errors = implode($errors);
       }
     }
-    $errors = implode($errors);
-
-    require_once(ROOT . '/views/create/index.php');
-    return false;
+    require_once(ROOT . '/views/create/error.php');
+    return true;
   }
-
 }

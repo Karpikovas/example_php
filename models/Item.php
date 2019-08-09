@@ -11,17 +11,25 @@ class Item
     $sql = 'SELECT * FROM item';
     $result = $db->query($sql);
 
-    $i = 0;
-    $items = array();
-    while ($row = $result->fetch())
+  /*  $i = 0;
+    $items = []; // array();
+    while ($row = $result->fetch(PDO::FETCH_ASSOC))
     {
-      $items[$i]['id'] = $row['id'];
-      $items[$i]['name'] = $row['name'];
-      $items[$i]['secondname'] = $row['secondname'];
-      $items[$i]['patr'] = $row['patr'];
-      $items[$i]['birthday'] = $row['birthday'];
+      $items[] = $row;
+
+//      $items[$i]['id'] = $row['id'];
+//      $items[$i]['name'] = $row['name'];
+//      $items[$i]['secondname'] = $row['secondname'];
+//      $items[$i]['patr'] = $row['patr'];
+//      $items[$i]['birthday'] = $row['birthday'];
       $i++;
     }
+    print_r($items);
+  */
+    $items = $result->fetchAll(PDO::FETCH_ASSOC);
+
+    // $result->closeCursor();
+
     return $items;
   }
 
@@ -61,10 +69,13 @@ class Item
   {
     $db = Db::getConnection();
     $sql = $db->prepare('INSERT INTO item (name, secondname, patr, birthday) VALUES (:name, :secondname, :patr, :birthday);');
+
     $sql->bindParam(':name', $name, PDO::PARAM_STR);
     $sql->bindParam(':secondname', $secondName, PDO::PARAM_STR);
     $sql->bindParam(':patr', $patr, PDO::PARAM_STR);
     $sql->bindParam(':birthday', $birthday, PDO::PARAM_STR);
+
+
 
     return $sql->execute();
   }
