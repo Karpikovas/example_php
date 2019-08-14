@@ -3,17 +3,22 @@
 
 class Db
 {
+
+  private static $connection = null;
+
   public static function getConnection()
   {
-    $paramsPath = ROOT . '/config/db_config.php';
-    $params = include($paramsPath);
+    if (!self::$connection) {
 
-    $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
-    $db = new PDO($dsn, $params['user'], $params['password']);
-    $db->exec("set names utf8");
+      $paramsPath = ROOT . '/config/db_config.php';
+      $params = include($paramsPath);
 
-    return $db;
+      $dsn = "mysql:host={$params['host']};dbname={$params['dbname']}";
+      self::$connection = new PDO($dsn, $params['user'], $params['password']);
+      self::$connection->exec("set names utf8");
+    }
 
+    return self::$connection;
   }
 
 }

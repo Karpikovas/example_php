@@ -6,6 +6,16 @@ class CreateController
 
   public function actionIndex(): bool
   {
+    //start_session();
+
+
+
+    session_start();
+
+    if (!$_SESSION['user']) {
+      header('Location: /login');
+    }
+
     $name = $_POST['name'];
     $secondName = $_POST['secondname'];
     $patr = $_POST['patr'];

@@ -22,6 +22,18 @@ class libHTML
         ";
     echo $template;
   }
+
+  public function renderLogout(): void
+  {
+    $template = "
+                <form action='/logout' method='post'>
+                  <input type='submit' value='LOGOUT'/>
+                </form>
+              </body>
+              </html>
+        ";
+    echo $template;
+  }
 }
 
 

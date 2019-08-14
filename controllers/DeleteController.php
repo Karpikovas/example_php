@@ -4,6 +4,12 @@ class DeleteController
 {
   public function actionAsk(int $itemID): bool
   {
+    session_start();
+
+    if (!$_SESSION['user']) {
+      header('Location: /login');
+    }
+
     $header = ["ID", "Name", "SecondName", "Patr", "Birthday"];
     $items = Item::getItemByID($itemID);
 
@@ -20,6 +26,12 @@ class DeleteController
 
   public function actionProcess(int $itemID): bool
   {
+    session_start();
+
+    if (!$_SESSION['user']) {
+      header('Location: /login');
+    }
+
     if (isset($_POST['delete'])) {
       Item::deleteItem($itemID);
     }

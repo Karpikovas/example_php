@@ -1,4 +1,5 @@
 <?php libHTML::renderHeader("MAIN") ?>
+<?php libHTML::renderLogout() ?>
 
     <section>
         <table border="1">

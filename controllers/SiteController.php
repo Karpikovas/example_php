@@ -5,9 +5,13 @@ class SiteController
 
   public function actionIndex(): bool
   {
-    $items = array();
-    $items = Item::getItemsList();
+    session_start();
 
+    if (!$_SESSION['user']) {
+      header('Location: /login');
+    }
+
+    $items = Item::getItemsList();
     $header = ["ID", "Name", "SecondName", "Patr", "Birthday", "Delete"];
 
     require_once(ROOT . '/views/site/index.php');
